@@ -1,0 +1,32 @@
+# Ambientes virtuais
+venv/
+.env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dados
+data/raw/
+data/processed/
+!data/sample/
+*.csv
+*.xlsx
+*.parquet
+
+# Modelos pesados
+*.pkl
+*.joblib
+*.h5
+
+# Configurações sensíveis
+.env
+secrets.json
+
+# Sistema
+.DS_Store
+Thumbs.db
