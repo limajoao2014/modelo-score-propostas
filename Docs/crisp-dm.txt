@@ -1,0 +1,105 @@
+O que o negócio quer com esse modelo ?
+Entender o target, e com isso conseguir realizar previsões de probabilidade de cada proposta ser 1 ou 0;
+o 1 é contratou e o 0 é não contratou.
+
+duvidas sobre o negócio:
+para criar um modelo preciso ter as regras que levam a contração:
+qual o LTV máximo?
+qual o comprometimento de renda permitido ?
+qual a idade máxima para o financiamento ?
+qual 
+
+O que seria o sucesso desse modelo ?
+O sucesso é um modelo que entenda as variáveis, e consiga identificar os padrões e calcule as probabilidades das propostas de serem 1 ou 0.
+
+Qual seria o erro mais caro ?
+O erro mais caro seria a gente classificar errado a possibilidade das propostas, classificando propostas boas como 0, isso faria o negócio perder bons clientes em potencial.  
+
+Qual dataset faz sentido ?
+
+primeiro devemos criar um identificador, então podemos passar as propostas como identificador;
+
+ids = [id_proposta];
+
+features= [
+Valor_imovel,
+Valor_financiado,
+entrada,
+ltv,
+idade,
+renda mensal,
+score_de_crédito,
+compromentimento_de_renda,
+Possui_fgts,
+Valor_da_parcela,
+
+
+
+]
+Também deve ser considerado: cidade e UF, essas duas variáveis podem influenciar no valor do imóvel e no valor da renda exigindo algum tipo de ponderação.
+Podemos considerar:
+Tempo de relacionamento,
+numero de consulta de crédito,
+Aprovado pré analise (avaliar com essa feature e sem, pois pode gerar uma má influencia no modelo overfiting)
+o prazo com a idade deve ser levado em consideração,
+Taxa,
+Estado civil, pois pode indicar compromentimento de renda.
+
+Dataunderstanding:
+
+Temos um total de 33 colunas de diversos tipos de dados;
+
+mais de 5000 linhas, porém só temos 335 com data de contratação, então podemos deduzir que apenas 335 propostas viraram contrato.
+temos uma porcentagem de 6,7% contrataram contra 93,3% que não contrataram.
+
+Algumas hipóteses:
+a média do score de quem contratou foi 690, e de quem não contratou foi 569;
+
+
+essa variável existia ANTES da contratação?
+o que devemos evitar de usar no modelo é a data contratação e o status final da proposta.
+
+Analise por conversão:
+              taxa_conversao  total_propostas   renda_media
+regiao                                                     
+Norte               7.854406              522   9336.399387
+Centro-Oeste        6.981132              530  10194.059736
+Sul                 6.824513              718   9743.459220
+Nordeste            6.713427              998   9236.125431
+Sudeste             6.317204             2232   9575.737106
+
+Região norte converteu aproximadamente 41 proposta;
+a região sudente converteu aproximadamente 141 propsotas, o quanto isso impacta, pois ela tem muitas propostas para converter pouco.
+a média de simulação de propostas considerando todas as regiões é 1000, quanto maior a conversão mais abaixo isso fica.
+
+duvida:
+eu acho que essas informações são importantes, porém como isso influencia no aprendizado do modelo, eu tenho que criar algum balanceador, se sim como ?
+
+
+a renda média das regiões está bem balanceada;
+
+
+           media_idade  prazo_medio       anos
+contratou                                     
+0            38.970632   331.897106  27.658092
+1            37.456716   343.343284  28.611940
+
+Como as médias das idade e prazo não ficaram muito distantes acredito que se eu passar a idade sem nenhuma feature a mais não vai causar nenhum problema overfiting (quanto maior a idade menor a chance de contratação, isso no caso dessa base e dessa analise);
+
+
+Regiao	media_valor_imovel
+Norte	 312.103,35 
+Centro-Oeste	 425.361,23 
+Sul	 415.837,40 
+Nordeste	 329.516,61 
+Sudeste	 417.896,77 
+média	 380.143,07 
+
+O valor dos imóveis não estão tão distantes, a média da diferença é de aproximadamente 28.314,47 não é algo que vai viciar o modelo
+
+Analise do gráfico de quantidade por score:
+Podemos ver que só ter um score alto não induz a contração, pois temos pessoas com score de 900+ que não contrataram, porém é a menor quantidade, a maior quandidade fica entre 500 e 700, porém temos uma alta quantidade de pessoas que não contrataram que tem score no mesmo range da média dos que contrataram
+
+
+	
+	
